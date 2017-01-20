@@ -12,22 +12,24 @@ import RealmSwift
 
 
 @UIApplicationMain
+
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var notificationToken: NotificationToken!
-    public var realm: Realm!
+    
 
     func setupRealm() -> Void {
-        SyncUser.logIn(with: SyncCredentials.usernamePassword(username: "admin@chatdemo.com", password: "password"), server: URL(string: "http://127.0.0.1:9080")!) { (user, error) in
+        SyncUser.logIn(with: SyncCredentials.usernamePassword(username: "admin@chatdemo.com", password: "password"), server: URL(string: "http://10.0.0.24:9080")!) { (user, error) in
             guard let user = user else {
                 fatalError(String(describing: error))
             }
             DispatchQueue.main.async {
                 let configuration = Realm.Configuration(
-                    syncConfiguration: SyncConfiguration(user: user, realmURL: URL(string: "realm://127.0.0.1:9080/~/chatDemo")!)
+                    syncConfiguration: SyncConfiguration(user: user, realmURL: URL(string: "realm://10.0.0.24:9080/~/demochat")!)
                 )
-                self.realm = try! Realm(configuration: configuration)
+                DatabaseManager.shareInstance.realm = try! Realm(configuration: configuration)
+                
             }
         }
     }
@@ -58,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-          self.notificationToken.stop()
+          DatabaseManager.shareInstance.notificationToken.stop()
     }
 
 

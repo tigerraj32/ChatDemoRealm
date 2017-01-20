@@ -1,8 +1,8 @@
 //
-//  User.swift
+//  ChatHead.swift
 //  ChatDemoRealm
 //
-//  Created by Javra Software on 19/01/2017.
+//  Created by Javra Software on 20/01/2017.
 //  Copyright © 2017 Javra Software. All rights reserved.
 //
 
@@ -10,32 +10,31 @@ import RealmSwift
 import Foundation
 
 
-class User: Object {
-  
-    dynamic var name: String? = nil
-    dynamic var  password: String? = nil
+class ChatHead: Object {
+    
     dynamic var id: Int = 0
-  
+    dynamic var head: String? = nil
+    dynamic var userId: Int = 0
+    
+    
+    
     
     override static func primaryKey() -> String? {
         return "id"
     }
-    convenience init(name: String, password: String) {
+    convenience  init(headId: String) {
         self.init()
         self.id = incrementID()
-        self.name = name
-        self.password = password
+        self.head = headId
+        
         
     }
     
-     func incrementID() -> Int {
+    func incrementID() -> Int {
         print((ChatHead.self))
         
         let realm =  DatabaseManager.shareInstance.realm
-        return (realm!.objects(User.self).max(ofProperty: "id") as Int? ?? 0) + 1
+        return (realm!.objects(ChatHead.self).max(ofProperty: "id") as Int? ?? 0) + 1
     }
 }
-
-   
-
-
+    
