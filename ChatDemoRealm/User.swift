@@ -15,7 +15,7 @@ class User: Object {
     dynamic var name: String? = nil
     dynamic var  password: String? = nil
     dynamic var id: Int = 0
-  
+    let heads = LinkingObjects(fromType: ChatHead.self, property: "users")
     
     override static func primaryKey() -> String? {
         return "id"

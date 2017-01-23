@@ -61,6 +61,7 @@ class UserListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.chatUser = self.users?[indexPath.row]
+        
         self.performSegue(withIdentifier: "segue.chat", sender: self)
         
         

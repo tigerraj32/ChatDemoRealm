@@ -15,49 +15,50 @@ class MessageViewViewController: UIViewController, UITableViewDelegate, UITableV
     var user: User?
     var friendUser: User?
     
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var input: UITextField!
     
-    var headId: String?
+    var headId: String? = nil
     var conversation: Message?
-    var allConversation: Results<Message>?
+    var allConversation: Results<Message>? = nil
     
+    deinit {
+        DatabaseManager.shareInstance.notificationToken.stop()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
         self.title = (self.user?.name!)! + ", " + (self.friendUser?.name!)!
         
+        print(self.user?.heads)
+
+        for chead in (self.user?.heads)! {
+            for u in  chead.users{
+                if u == self.friendUser! {
+                    print("we are lucky")
+                    self.self.headId = chead.head
+                    
+                }else{
+                    print("better luck next time")
+                }
+            }
+        }
         
-        let predicate = NSPredicate(format: "userId=%d", (self.friendUser?.id)!)
-        let heads = DatabaseManager.shareInstance.realm.objects(ChatHead.self).filter(predicate)
-        
-        if heads.count == 0 {
+        if self.headId == nil {
             self.headId = String.chatHeadID()
             try! DatabaseManager.shareInstance.realm.write({
                 let chatHeadUser  = ChatHead(headId:  self.headId!)
-                chatHeadUser.userId = (self.user?.id)!
+                chatHeadUser.users.append(self.user!)
+                chatHeadUser.users.append(self.friendUser!)
                 DatabaseManager.shareInstance.realm.add(chatHeadUser)
                 
-                let chatHeadFriend = ChatHead(headId:  self.headId!)
-                chatHeadFriend.userId = (self.friendUser?.id)!
-                DatabaseManager.shareInstance.realm.add(chatHeadFriend)
-                
-                
-                
             })
-        }else{
-            print("chat head already exist")
-            let head = heads.first
-            self.headId = head?.head!
             
         }
-        
         loadAllConversation()
-        
-        
-        
+        DatabaseManager.shareInstance.notificationToken = DatabaseManager.shareInstance.realm.addNotificationBlock { note in
+            //print(note)
+            self.loadAllConversation()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,21 +66,28 @@ class MessageViewViewController: UIViewController, UITableViewDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func sendHandler(_ sender: Any) {
+    @IBAction func sendMessageHandler(_ sender: Any) {
         print("message send")
+        
         self.conversation = Message(headId: self.headId!)
         self.conversation?.message = self.input.text!
         self.conversation?.senderId = (self.user?.id)!
         try! DatabaseManager.shareInstance.realm.write({
             DatabaseManager.shareInstance.realm.add(self.conversation!)
+            self.input.text = ""
             loadAllConversation()
         })
     }
     
+    
     func loadAllConversation() -> Void {
         let predicate = NSPredicate(format: "head=%@", (self.headId!))
         self.allConversation = DatabaseManager.shareInstance.realm.objects(Message.self).filter(predicate)
+        if (self.allConversation?.count)! > 0{
         self.tableView.reloadData()
+        let lastIndex  = IndexPath(row: (self.allConversation?.count)! - 1, section: 0)
+        self.tableView.scrollToRow(at: lastIndex , at: .bottom, animated: true)
+        }
         
     }
     // MARK: - Table view data source
@@ -92,6 +100,7 @@ class MessageViewViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return (self.allConversation?.count)!
+        //return 0
     }
     
     

@@ -14,7 +14,7 @@ class ChatHead: Object {
     
     dynamic var id: Int = 0
     dynamic var head: String? = nil
-    dynamic var userId: Int = 0
+    var users = List<User>()
     
     
     

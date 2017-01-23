@@ -20,13 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
     func setupRealm() -> Void {
-        SyncUser.logIn(with: SyncCredentials.usernamePassword(username: "admin@chatdemo.com", password: "password"), server: URL(string: "http://10.0.0.24:9080")!) { (user, error) in
+        SyncUser.logIn(with: SyncCredentials.usernamePassword(username: "rajan@chat.com", password: "password"), server: URL(string: "http://192.168.100.11:9080/")!) { (user, error) in
             guard let user = user else {
                 fatalError(String(describing: error))
             }
             DispatchQueue.main.async {
                 let configuration = Realm.Configuration(
-                    syncConfiguration: SyncConfiguration(user: user, realmURL: URL(string: "realm://10.0.0.24:9080/~/demochat")!)
+                    syncConfiguration: SyncConfiguration(user: user, realmURL: URL(string: "realm://192.168.100.11:9080/~/demochat")!)
                 )
                 DatabaseManager.shareInstance.realm = try! Realm(configuration: configuration)
                 

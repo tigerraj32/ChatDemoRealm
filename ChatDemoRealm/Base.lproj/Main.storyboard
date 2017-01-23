@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gLQ-CH-eVf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gLQ-CH-eVf">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -105,7 +105,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="98X-Jh-CO9" id="BSs-vk-Ksr">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -160,46 +160,56 @@
                                     <outlet property="delegate" destination="WvP-Q8-M9I" id="lEK-3z-H4I"/>
                                 </connections>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2jg-Fa-pyf">
-                                <rect key="frame" x="0.0" y="66" width="374" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="1BB-6m-nGo"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem style="plain" id="aeU-bU-EK1">
-                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="BxY-uK-krP">
-                                            <rect key="frame" x="16" y="7" width="287" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <nil key="textColor"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="WvP-Q8-M9I" id="dWe-IN-mCf"/>
-                                            </connections>
-                                        </textField>
-                                    </barButtonItem>
-                                    <barButtonItem title="Send" id="lY8-v3-nBV">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wxP-9W-s2s">
+                                <rect key="frame" x="0.0" y="64" width="375" height="46"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ffp-5I-6PR">
+                                        <rect key="frame" x="8" y="8" width="306" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <action selector="sendHandler:" destination="WvP-Q8-M9I" id="GD4-0Y-6py"/>
+                                            <outlet property="delegate" destination="WvP-Q8-M9I" id="hsh-WU-QUa"/>
                                         </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaa-Ag-FhU">
+                                        <rect key="frame" x="327" y="7" width="36" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="36" id="jf0-gK-hZg"/>
+                                        </constraints>
+                                        <state key="normal" title="Send"/>
+                                        <connections>
+                                            <action selector="sendMessageHandler:" destination="WvP-Q8-M9I" eventType="touchUpInside" id="Xam-Bx-8gd"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ffp-5I-6PR" secondAttribute="bottom" constant="8" id="2VG-fe-5pS"/>
+                                    <constraint firstItem="ffp-5I-6PR" firstAttribute="top" secondItem="wxP-9W-s2s" secondAttribute="top" constant="8" id="Cin-TN-BEU"/>
+                                    <constraint firstItem="kaa-Ag-FhU" firstAttribute="leading" secondItem="ffp-5I-6PR" secondAttribute="trailing" constant="13" id="Kaw-RP-H0Y"/>
+                                    <constraint firstAttribute="bottom" secondItem="kaa-Ag-FhU" secondAttribute="bottom" constant="9" id="MqG-u4-66Y"/>
+                                    <constraint firstItem="kaa-Ag-FhU" firstAttribute="top" secondItem="wxP-9W-s2s" secondAttribute="top" constant="7" id="V7P-XE-cNd"/>
+                                    <constraint firstAttribute="height" constant="46" id="mL5-3o-FZm"/>
+                                    <constraint firstAttribute="trailing" secondItem="kaa-Ag-FhU" secondAttribute="trailing" constant="12" id="mOz-1W-b8R"/>
+                                    <constraint firstItem="ffp-5I-6PR" firstAttribute="leading" secondItem="wxP-9W-s2s" secondAttribute="leading" constant="8" id="rxk-gg-xi3"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="2jg-Fa-pyf" secondAttribute="trailing" constant="1" id="0at-Qf-fiK"/>
-                            <constraint firstItem="9Xz-g2-7GZ" firstAttribute="top" secondItem="2jg-Fa-pyf" secondAttribute="bottom" id="0bH-W9-QOE"/>
-                            <constraint firstAttribute="trailing" secondItem="9Xz-g2-7GZ" secondAttribute="trailing" id="695-e1-DWf"/>
-                            <constraint firstItem="2jg-Fa-pyf" firstAttribute="leading" secondItem="3ea-LB-id7" secondAttribute="leading" id="IZR-RF-iC4"/>
-                            <constraint firstItem="AXD-Xa-ME6" firstAttribute="top" secondItem="9Xz-g2-7GZ" secondAttribute="bottom" constant="1" id="WAU-Lq-Yn3"/>
-                            <constraint firstItem="9Xz-g2-7GZ" firstAttribute="leading" secondItem="3ea-LB-id7" secondAttribute="leading" id="pK9-Kd-Cpl"/>
-                            <constraint firstItem="2jg-Fa-pyf" firstAttribute="top" secondItem="s2H-1t-Fuf" secondAttribute="bottom" constant="2" id="pzO-zT-zMg"/>
+                            <constraint firstAttribute="trailing" secondItem="9Xz-g2-7GZ" secondAttribute="trailing" id="7ke-dP-7xj"/>
+                            <constraint firstAttribute="trailing" secondItem="wxP-9W-s2s" secondAttribute="trailing" id="H9b-yV-p3h"/>
+                            <constraint firstItem="wxP-9W-s2s" firstAttribute="top" secondItem="s2H-1t-Fuf" secondAttribute="bottom" id="T2R-tj-Gvm"/>
+                            <constraint firstItem="AXD-Xa-ME6" firstAttribute="top" secondItem="9Xz-g2-7GZ" secondAttribute="bottom" constant="1" id="WBA-4d-2Nc"/>
+                            <constraint firstItem="wxP-9W-s2s" firstAttribute="leading" secondItem="3ea-LB-id7" secondAttribute="leading" id="cmT-lu-ppf"/>
+                            <constraint firstItem="9Xz-g2-7GZ" firstAttribute="top" secondItem="wxP-9W-s2s" secondAttribute="bottom" id="d2f-Pw-aLm"/>
+                            <constraint firstItem="9Xz-g2-7GZ" firstAttribute="leading" secondItem="3ea-LB-id7" secondAttribute="leading" id="yAe-L7-dyd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Message" id="CzJ-Kn-qmm"/>
                     <connections>
-                        <outlet property="input" destination="BxY-uK-krP" id="pUg-vd-2lu"/>
+                        <outlet property="input" destination="ffp-5I-6PR" id="m8w-aT-pGq"/>
                         <outlet property="tableView" destination="9Xz-g2-7GZ" id="HjQ-nV-kOi"/>
                     </connections>
                 </viewController>
